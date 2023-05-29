@@ -1,7 +1,9 @@
+from . import CONN, CURSOR
 import sqlite3
 
 CONN = sqlite3.connect('music.db')
 CURSOR = CONN.cursor()
+
 
 class Song:
     def __init__(self, name, album):
@@ -29,7 +31,8 @@ class Song:
 
         CURSOR.execute(sql, (self.name, self.album))
 
-        self.id = CURSOR.execute("SELECT last_insert_rowid() FROM songs").fetchone()[0]
+        self.id = CURSOR.execute(
+            "SELECT last_insert_rowid() FROM songs").fetchone()[0]
 
     @classmethod
     def create(self, name, album):
